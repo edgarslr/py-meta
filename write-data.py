@@ -3,6 +3,9 @@ from exif import Image as ExifImage
 #from PIL import Image as PillowImage
 #from PIL import ExifTags
 import os
+
+import random
+
 #lista imagenes en lista images
 images = os.listdir('imagenes')
 # List Your Images
@@ -13,6 +16,19 @@ EXIF_TAGS = [
     "datetime_original",
     "copyright",
 ]
+#random min + seg
+def gen_ms():
+    seg=(random.randint(0,59))
+    if seg<10:
+        seg="0"+str(seg)
+    return seg
+#random hora
+def gen_h():
+    seg=(random.randint(9,16))
+    if seg<10:
+        seg="0"+str(seg)
+    return seg
+
 # editar metadatos en el exif
 print("EXIF\n======")
 for img in images:
@@ -24,10 +40,15 @@ for img in images:
         exif_img = ExifImage(input_file)
     
     # mete datos artista (ejemplo)
-    exif_img.artist = "marco"
+    exif_img.artist = "  "
 
+    #random para minutos y segundos
+    a=gen_ms()
+    b=gen_ms()
+    h=gen_h()
     # inserta datos de fecha y copyright
-    exif_img.datetime_original = "2018:01:29 22:50:55"
+    exif_img.datetime_original = "2018:01:29 "+str(h)+":"+str(a)+":"+str(b)+""
+    
     exif_img.copyright = "Copyright 2018"
     #path para guardar imagenes
     output_filepath = img
